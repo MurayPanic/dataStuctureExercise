@@ -1,0 +1,58 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+void find2max(vector<int> *pointer){
+	auto ipointer  = (*pointer).begin();
+	int max_one = *ipointer ;
+	int max_two = * (ipointer+1);
+	
+	for(auto element : *pointer){
+		
+		if (element >= max_one){
+			max_one = element;
+		}else{
+			if ( (element > max_two) ){
+				max_two =element;
+			}
+		}
+		
+		
+	
+		
+	}
+	
+	
+	cout << "The maximum is: " << max_one <<endl;
+	cout << "The second maximum is: " << max_two << endl;
+	
+}
+
+
+int main(){
+	cout<< "This program find out the maximum and second maximum in an array"<<endl;
+	int n;
+	
+	cout << "Please enter the size of the array you want to generate (the size must be larger than 2):" <<endl;
+	cin >> n;
+	
+	cout << "Now generate the matix:" <<endl;
+	
+	vector<int> arrayA;
+	
+	for (int i=0; i<n; ++i){
+		arrayA.push_back( 1+rand()/((RAND_MAX + 1U)/6) );
+	}
+	
+	cout << "The generated array is " << endl;
+	cout <<"[ ";
+    
+    for (auto element : arrayA){
+		cout << element  << " ";
+	}	
+	cout << "]" << endl;
+	
+	find2max( &arrayA );
+	
+	return 0;
+}

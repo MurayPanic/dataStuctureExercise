@@ -1,0 +1,92 @@
+#include<iostream>
+#include<vector>
+#include <algorithm>
+
+using namespace std;
+
+void merge_arrays_nodu(vector<double> *a, vector<double> *b,vector<double> *c){
+	for( auto ia = (*a).begin(); ia != (*a).end(); ++ia ){
+		auto dup_or_not = find( (*c).begin(), (*c).end(), *ia );
+		if (dup_or_not == (*c).end() ) {
+			(*c).push_back( *ia ) ;
+			}
+		
+	}
+	
+	for( auto ib = (*b).begin(); ib != (*b).end(); ++ib ){
+		auto dup_or_not = find( (*c).begin(), (*c).end(), *ib );
+		if (dup_or_not == (*c).end() ) {
+			(*c).push_back( *ib ) ;
+			}
+		
+	}
+	
+}
+
+
+
+int main(){
+	int asize;
+	int bsize;
+	vector<double> arrayA;
+	vector<double> arrayB;
+	vector<double> arrayC;
+	
+	cout << "This program includes a function merge_arrays. The arrays are restored using vector"<< endl;
+	cout << "Now generate the arrays for merging:"<< endl;
+	
+	cout <<"Please enter the size of array A: " << endl;
+	cin >> asize;
+	
+	cout << "Please enter the size of array B: " << endl;
+	cin >> bsize;
+	
+	
+	cout << "Now start generate the arrays for merging" << endl;
+	
+	for(int i =0; i<asize; ++i){
+		arrayA.push_back( 1+rand()/((RAND_MAX + 1U)/6) );
+	}
+	
+	for (int i =0; i<bsize; ++i){
+		
+		arrayB.push_back( 1+rand()/((RAND_MAX + 1U)/6) );
+		
+	}
+	
+	cout << "The generated arrayA is " << endl;
+	cout <<"[ ";
+    
+    for (auto element : arrayA){
+		cout << element  << " ";
+	}	
+	cout << "]" << endl;
+	
+	cout << "The generated arrayB is " << endl;
+	cout <<"[ ";
+    
+    for (auto element : arrayB){
+		cout << element  << " ";
+	}	
+	cout << "]" << endl;
+	
+	cout << "Now merge array A and B into a new Array C"<<endl;
+	
+	
+	
+	merge_arrays_nodu(&arrayA, &arrayB, &arrayC);
+	
+	
+	cout << "The merged array is " << endl;
+	cout << "[" ;
+	
+	for (auto element : arrayC){
+		cout << element << " ";
+	}
+	
+	cout << "]" << endl;
+	
+	
+	
+	return 0;
+}

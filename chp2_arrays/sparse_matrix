@@ -1,0 +1,117 @@
+#include<iostream>
+#include<vector>
+#include<map>
+using namespace std;
+
+int main(){
+	cout << "This program restore a sparse matrix using array" <<endl;
+	int m{0};
+	int n{0};
+	cout << "Please enter the size of the sparse matrix"<<endl;
+	cin >> m >> n;
+	cout << "Now start generate a matrix of " << m << " X " << n << " :"<< endl;
+	
+	int matrix[m][n]{0};
+	
+	for (auto &row: matrix){
+		cout << "[ ";
+		for(auto &col : row){
+		int temp =(1+ rand()/((RAND_MAX+1u)/6));
+		col = ((temp%2) ==0 ) ? 0: temp ;
+		cout << col << " ";
+		}
+		cout << "] " << endl;
+	}
+	
+	cout << "Now start representing the above sparse matrix using arrays"<< endl;
+	vector<vector<int>  > array_sm;
+	vector<int>           first_row{m,n,0};
+	
+	array_sm.push_back(first_row);
+	int i=0;
+	
+	for (auto & row: matrix){
+		int j=0;
+		for (auto &col : row){
+			if (col!=0){
+				vector<int> temp_row{i,j,col};
+				array_sm[0][2]+=1;
+				array_sm.push_back(temp_row);
+			}
+			++j;
+		}
+	    ++i;
+	}
+	
+	
+	for (auto &ele_row : array_sm){
+		cout <<"[ ";
+		for (auto &ele_col : ele_row ){
+			cout << ele_col << " ";
+		}
+		cout << "]" << endl;;
+	}
+	
+	bool square_or_not = 1;
+	cout << "Square or Not: ";
+	if (array_sm[0][0]==array_sm[0][1]){
+		
+		cout << "Yes";
+	}else{
+		square_or_not = 0;
+		cout << "No";
+	}
+	cout << endl;
+	
+	cout << "Now determing whether the matix is diagnoal or not"<< endl;
+	cout << "Diagonal or not: ";
+	bool diagonal_or_not = 1;
+	for (auto row : array_sm){
+		if (row[0]!=row[1]){
+			diagonal_or_not=0;
+			break;
+		}
+	}
+	
+	if (diagonal_or_not){
+		cout << "Yes";
+	}else{
+		cout << "No";
+	}
+	cout << endl;
+	
+	cout << "Lower triangle or not:";
+	bool lower_tri = 1;
+	if (square_or_not=0){
+		cout << "No";
+	}
+	
+	map<int, int> row_freq_table;
+	for (auto row: array_sm){
+		auto dict_iter = row_freq_table.find(row[0]);
+		if (dict_iter != row_freq_table.end()){
+			(dict_iter->second ) +=1; 
+		}else{
+			row_freq_table[row[0]] = 1;
+			
+		}
+	}
+	
+	for (auto item : row_freq_table){
+		if (item.first != item.second){
+			lower_tri =0;
+			break;
+		}
+	}
+	
+	if (lower_tri){
+		cout << "Yes";
+	}else{
+		cout << "No";
+	}
+	cout << endl;
+	
+	
+	
+	return 0;
+}

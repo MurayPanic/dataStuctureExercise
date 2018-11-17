@@ -98,7 +98,7 @@ int main(){
 	}
 	
 	for (auto item : row_freq_table){
-		if (item.first != item.second){
+		if (item.first != (item.second-1)){
 			lower_tri =0;
 			break;
 		}
